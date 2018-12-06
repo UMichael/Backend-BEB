@@ -26,6 +26,7 @@ func (data *Phone) Create(db *sql.DB) error {
 		fmt.Println("err creating", err)
 		return err
 	}
+	defer stmt.Close()
 	err = stmt.QueryRow(data.Name, data.Number).Scan(&data.ID)
 	return err
 }
@@ -34,11 +35,11 @@ func (data *Phone) Create(db *sql.DB) error {
 /*deletes content in database*/
 func (data *Phone) Delete(db *sql.DB) error {
 
-	_, err := db.Exec("delete from phone where id = $1", data.ID)
+	_, err := db.Exec("delete from phone where accnumber = $1", data.Number)
 	return err
 }
 
 func (data *Phone) Update(db *sql.DB) error {
-	_, err := db.Exec("update phone set number = $2,name = $1 where id = $1", data.ID, data.Name, data.Number)
+	_, err := db.Exec("update phone set accnumber = $2,author = $1 where author = $1", data.Name, data.Number)
 	return err
 }
