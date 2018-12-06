@@ -29,3 +29,16 @@ func (data *Phone) Create(db *sql.DB) error {
 	err = stmt.QueryRow(data.Name, data.Number).Scan(&data.ID)
 	return err
 }
+
+//Delete ...
+/*deletes content in database*/
+func (data *Phone) Delete(db *sql.DB) error {
+
+	_, err := db.Exec("delete from phone where id = $1", data.ID)
+	return err
+}
+
+func (data *Phone) Update(db *sql.DB) error {
+	_, err := db.Exec("update phone set number = $2,name = $1 where id = $1", data.ID, data.Name, data.Number)
+	return err
+}

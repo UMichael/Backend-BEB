@@ -12,7 +12,7 @@ var data *sql.DB
 //open database
 func init() {
 	var err error
-	data, err = sql.Open("postgres", "user=postgres password=DSC sslmode=disable dbname=DSC")
+	data, err = sql.Open("postgres", "user=DSC password=DSC sslmode=disable dbname=database")
 	if err != nil {
 		panic(err)
 	}
@@ -29,5 +29,6 @@ func main() {
 		Number: "08115780877",
 	}
 	val.Create(data)
-	fmt.Println(data)
+	fmt.Println(val)
+	val.Delete(data)
 }
